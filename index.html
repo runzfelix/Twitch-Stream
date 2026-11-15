@@ -6,30 +6,28 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body, html { width: 100vw; height: 100vh; overflow: hidden; background: #000; }
     
+    /* Stellt das gedrehte iPad-Bild wieder exakt waagerecht */
     video {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 100vh;
+      height: 100vw;
+      transform: translate(-50%, -50%) rotate(-90deg);
+      object-fit: contain;
+      z-index: 1;
+    }
+
+    /* Deine StreamElements-Overlays direkt darüber */
+    #overlay {
       position: absolute;
       top: 0;
       left: 0;
       width: 100vw;
       height: 100vh;
-      object-fit: contain;
-      z-index: 1;
-    }
-
-    #overlay-wrapper {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 1920px;
-      height: 1080px;
-      transform-origin: top left;
-      pointer-events: none;
-      z-index: 2;
-    }
-    #overlay {
-      width: 1920px;
-      height: 1080px;
       border: none;
+      z-index: 2;
+      pointer-events: none;
     }
 
     #startBtn {
@@ -52,20 +50,9 @@
 <body>
   <button id="startBtn" onclick="startScreen()">Bildschirm teilen starten</button>
   <video id="screenVideo" autoplay playsinline muted></video>
-  
-  <div id="overlay-wrapper">
-    <iframe id="overlay" src="https://streamelements.com"></iframe>
-  </div>
+  <iframe id="overlay" src="https://streamelements.com"></iframe>
 
   <script>
-    function scaleOverlay() {
-      const wrapper = document.getElementById('overlay-wrapper');
-      const scale = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
-      wrapper.style.transform = `scale(${scale})`;
-    }
-    window.addEventListener('resize', scaleOverlay);
-    scaleOverlay();
-
     async function startScreen() {
       try {
         const stream = await navigator.mediaDevices.getDisplayMedia({ video: true, audio: true });
