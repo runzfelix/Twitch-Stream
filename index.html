@@ -5,12 +5,63 @@
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body, html { width: 100vw; height: 100vh; overflow: hidden; background: #000; }
-    #cam { position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; border: none; z-index: 1; }
-    #overlay { position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; border: none; z-index: 2; pointer-events: none; }
+    
+    /* Dreht das iPad-Screenshare-Bild um 90° ins Querformat */
+    video {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 100vh;
+      height: 100vw;
+      transform: translate(-50%, -50%) rotate(-90deg);
+      object-fit: cover;
+      z-index: 1;
+    }
+
+    /* Deine StreamElements-Overlays exakt darüber */
+    #overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      border: none;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    #startBtn {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 10;
+      padding: 20px 35px;
+      font-size: 20px;
+      font-weight: bold;
+      background: #9146FF;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
-  <iframe id="cam" src="https://vdo.ninja" allow="autoplay;camera;microphone;fullscreen"></iframe>
+  <button id="startBtn" onclick="startScreen()">Bildschirm teilen starten</button>
+  <video id="screenVideo" autoplay playsinline muted></video>
   <iframe id="overlay" src="https://streamelements.com"></iframe>
+
+  <script>
+    async function startScreen() {
+      try {
+        const stream = await navigator.mediaDevices.getDisplayMedia({ video: true, audio: true });
+        document.getElementById('screenVideo').srcObject = stream;
+        document.getElementById('startBtn').style.display = 'none';
+      } catch (err) {
+        alert("Fehler beim Teilen: " + err.message);
+      }
+    }
+  </script>
 </body>
 </html>
