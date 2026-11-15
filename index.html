@@ -2,58 +2,15 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body, html {
-      width: 100vw;
-      height: 100vh;
-      overflow: hidden;
-      background: #000;
-    }
-    #cam {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      border: none;
-      z-index: 1;
-    }
-    #overlay-wrapper {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 1920px;
-      height: 1080px;
-      transform-origin: top left;
-      pointer-events: none;
-      z-index: 2;
-    }
-    #overlay {
-      width: 1920px;
-      height: 1080px;
-      border: none;
-    }
+    body, html { width: 100vw; height: 100vh; overflow: hidden; background: #000; }
+    #cam { position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; border: none; z-index: 1; }
+    #overlay { position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; border: none; z-index: 2; pointer-events: none; }
   </style>
 </head>
 <body>
   <iframe id="cam" src="https://vdo.ninja" allow="autoplay;camera;microphone;fullscreen"></iframe>
-  
-  <div id="overlay-wrapper">
-    <iframe id="overlay" src="https://streamelements.com"></iframe>
-  </div>
-
-  <script>
-    function scaleOverlay() {
-      const wrapper = document.getElementById('overlay-wrapper');
-      const scaleX = window.innerWidth / 1920;
-      const scaleY = window.innerHeight / 1080;
-      const scale = Math.min(scaleX, scaleY);
-      wrapper.style.transform = `scale(${scale})`;
-    }
-    window.addEventListener('resize', scaleOverlay);
-    scaleOverlay();
-  </script>
+  <iframe id="overlay" src="https://streamelements.com"></iframe>
 </body>
 </html>
