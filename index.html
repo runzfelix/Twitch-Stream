@@ -1,1 +1,18 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body, html { width: 100vw; height: 100vh; overflow: hidden; background: #000; }
+    iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+    #cam { z-index: 1; }
+    #overlay { z-index: 2; pointer-events: none; }
+  </style>
+</head>
+<body>
+  <iframe id="cam" src="https://vdo.ninja" allow="autoplay;camera;microphone"></iframe>
+  <iframe id="overlay" src="https://streamelements.com/overlay/6af983e19e8ca165256fd6f4/Oh-keDIoqPJoN8unmhoi9ZTJhRxPX7hkE_sWb-4KpbLyy3Uv"></iframe>
+</body>
+</html>
 
